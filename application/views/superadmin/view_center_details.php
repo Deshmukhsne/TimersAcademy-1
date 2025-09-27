@@ -1498,12 +1498,13 @@
         const payload = {
           center_id: centerId,
           batch_name: $('#batch_name').val(),
+          // category:  $('#batch_name').val(),
           batch_level: $('#batch_level').val(),
           start_time: $('#batch_timing').val(),
           end_time: $('#end_time').val(),
           start_date: $('#start_date').val(),
           end_date: $('#end_date').val(),
-          category: $('#batch_category').val()
+          category: $('#category').val()
         };
         $.ajax({
           url: baseUrl + "Center/add_batch",

@@ -302,11 +302,14 @@ class Admission extends CI_Controller
             echo json_encode(['success' => false, 'message' => 'No form data received']);
             return;
         }
-
+      
         // Save admission
         $student_id = $this->Admission_model->save_admission($data);
 
         if ($student_id) {
+ 
+            $insert_notification = $this->Admission_model->insert_notification($data['center']);
+
             log_message('debug', 'Admission saved successfully with student ID: ' . $student_id);
             echo json_encode(['success' => true, 'student_id' => $student_id]);
         } else {
@@ -544,6 +547,10 @@ class Admission extends CI_Controller
         $success = $this->db->update("students", $updateData);
 
         if ($success) {
+
+             $insert_notification = $this->Admission_model->insert_notification_renew();
+
+
 
             $facilities = $this->input->post('facilities');
 
