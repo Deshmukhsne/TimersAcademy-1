@@ -221,6 +221,7 @@
                                                     <td data-label="Level"><?= $stu['student_progress_category'] ?></td>
                                                     <td data-label="Batch Name"><?= $stu['batch_name'] ?></td>
                                                     <td data-label="Category"><?= $stu['category'] ?></td>
+                                                    
                                                     <td data-label="Fees" class="fees">₹<?= number_format($stu['total_fees'], 2) ?></td>
                                                     <td data-label="Status" class="status-cell">
                                                         <?php if ($stu['status'] == 'Active'): ?>
