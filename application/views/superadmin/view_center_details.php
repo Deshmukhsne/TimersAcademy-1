@@ -1056,9 +1056,7 @@
           <p><span>Rent:</span> ₹${parseFloat(center.rent_amount).toFixed(2)}</p>
           <p><span>Rent Date:</span> ${center.rent_paid_date}</p>
           <p><span>Password:</span> ${center.password}</p>
-          <button class="btn btn-edit" data-center-id="${center.id}">
-            <i class="fas fa-edit"></i> Edit
-          </button>
+       
         </div>
       </div>`;
         $('#centerInfoCard').html(centerInfo);

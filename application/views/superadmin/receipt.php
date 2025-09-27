@@ -189,10 +189,16 @@
 
             <div class="text-center mt-4 no-print">
                 <button class="btn btn-primary" onclick="window.print()"><i class="fas fa-print"></i> Print Receipt</button>
-                <a href="<?= base_url('admission') ?>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Admission</a>
+                <a href="<?= base_url('superadmin/Students') ?>" class="btn btn-secondary"><i class="fas fa-arrow-left" onclick="redirectToPage()"></i> Back to Student Management</a>
             </div>
         </div>
     </div>
+    
+    <script>
+function redirectToPage() {
+    window.location.href = "<?= base_url('superadmin/Students'); ?>";
+}
+</script>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

@@ -282,7 +282,31 @@ public function get_students()
     // print_r($query->result_array());die;
     return $query->result_array();
 }
+// ---------------------------------------26/9/25-------prajwal
+public function activate_students_for_today() {
+    $today = date('Y-m-d');
 
+    // build & run update
+    $this->db->where('joining_date', $today);
+    $this->db->where('status !=', 'Active');
+    $this->db->update('students', ['status' => 'Active']);
 
+    // Debug info
+    $last_query = $this->db->last_query();
+    log_message('debug', "Activation Query: $last_query");
 
+    $affected = $this->db->affected_rows();
+    log_message('debug', "Activation affected rows: $affected");
+
+    $db_error = $this->db->error(); // array('code','message')
+    if (!empty($db_error['code'])) {
+        log_message('error', "DB error activating students: ({$db_error['code']}) {$db_error['message']}");
+    }
+
+    // also return affected rows for the test route
+    return $affected;
+}
+public function get_coordinator() {
+    return $this->db->get('coordinator')->row_array();
+}
 }

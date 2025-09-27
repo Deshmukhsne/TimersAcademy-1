@@ -1114,32 +1114,60 @@
 
                                     </div>
 
-                                    <div class="detail-row">
-                                        <div class="detail-label">
-                                            <i class="fas fa-user-tie"></i>
-                                            Coordinator
-                                        </div>
-                                        <div class="detail-value">
-                                            <?php print_r($student_get_current_batch[0]["coordinator"]) ?>
-                                        </div>
-                                    </div>
+                                    <!--<div class="detail-row">-->
+                                    <!--    <div class="detail-label">-->
+                                    <!--        <i class="fas fa-user-tie"></i>-->
+                                    <!--        Coordinator-->
+                                    <!--    </div>-->
+                                    <!--    <div class="detail-value">-->
+                                    <!--        <?php print_r($student_get_current_batch[0]["name"]) ?>-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
 
-                                    <div class="detail-row">
-                                        <div class="detail-label">
-                                            <i class="fas fa-phone"></i>
-                                            Coordinator Phone
-                                        </div>
-                                        <div class="detail-value">
-                                            <?php print_r($student_get_current_batch[0]["coordinator_phone"]) ?>
-                                        </div>
-                                    </div>
+                                    <!--<div class="detail-row">-->
+                                    <!--    <div class="detail-label">-->
+                                    <!--        <i class="fas fa-phone"></i>-->
+                                    <!--        Coordinator Phone-->
+                                    <!--    </div>-->
+                                    <!--    <div class="detail-value">-->
+                                    <!--        <?php print_r($student_get_current_batch[0]["contact"]) ?>-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
+<div class="detail-row">
+    <div class="detail-label">
+        <i class="fas fa-user-tie"></i>
+        Coordinator
+    </div>
+    <div class="detail-value">
+        <?php echo !empty($coordinator['name']) ? $coordinator['name'] : 'N/A'; ?>
+    </div>
+</div>
 
+<div class="detail-row">
+    <div class="detail-label">
+        <i class="fas fa-phone"></i>
+        Coordinator Phone
+    </div>
+    <div class="detail-value">
+        <?php echo !empty($coordinator['mobile']) ? $coordinator['mobile'] : 'N/A'; ?>
+    </div>
+</div>
+
+<!--<div class="detail-row">-->
+<!--    <div class="detail-label">-->
+<!--        <i class="fas fa-envelope"></i>-->
+<!--        Coordinator Email-->
+<!--    </div>-->
+<!--    <div class="detail-value">-->
+<!--        <?php echo !empty($coordinator['email']) ? $coordinator['email'] : 'N/A'; ?>-->
+<!--    </div>-->
+<!--</div>-->
                                     <div class="detail-row">
                                         <div class="detail-label">
                                             <i class="fas fa-map-marker-alt"></i>
                                             Training Venue
                                         </div>
-                                        <?php echo $student_get_current_batch[0]["center_name"]; ?>
+                                        <?php echo $student_get_current_batch[0]["address"]; ?>
                                     </div>
                                 </div>
                             </div>
@@ -1467,24 +1495,24 @@
                         <p>Student's attendance records and statistics.</p>
 
                         <!-- Attendance Statistics -->
-                        <div class="attendance-stats">
-                            <div class="stat-card">
-                                <div class="stat-number">
-                                    <?php print_r($get_overrall_attendance["attendance_percentage"]) ?>
-                                </div>
-                                <div class="stat-label">Overall Attendance</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number"><?php print_r($get_overrall_attendance["present_days"]) ?>
-                                </div>
-                                <div class="stat-label">Sessions Attended</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number">
-                                    <?php echo max(0, $get_overrall_attendance["total_days"] - $get_overrall_attendance["present_days"]); ?>
-                                </div>
-                                <div class="stat-label">Sessions Missed</div>
-                            </div>
+                        <!--<div class="attendance-stats">-->
+                        <!--    <div class="stat-card">-->
+                        <!--        <div class="stat-number">-->
+                        <!--            <?php print_r($get_overrall_attendance["attendance_percentage"]) ?>-->
+                        <!--        </div>-->
+                        <!--        <div class="stat-label">Overall Attendance</div>-->
+                        <!--    </div>-->
+                        <!--    <div class="stat-card">-->
+                        <!--        <div class="stat-number"><?php print_r($get_overrall_attendance["present_days"]) ?>-->
+                        <!--        </div>-->
+                        <!--        <div class="stat-label">Sessions Attended</div>-->
+                        <!--    </div>-->
+                        <!--    <div class="stat-card">-->
+                        <!--        <div class="stat-number">-->
+                        <!--            <?php echo max(0, $get_overrall_attendance["total_days"] - $get_overrall_attendance["present_days"]); ?>-->
+                        <!--        </div>-->
+                        <!--        <div class="stat-label">Sessions Missed</div>-->
+                        <!--    </div>-->
 
                         </div>
 

@@ -779,17 +779,43 @@ function generateCenterNumber() {
 
                         <!-- Add Facility Button -->
                         <div class="d-flex justify-content-end mt-4">
-                            <button type="button" class="btn btn-info" id="addFacility" onclick="redirectToPage()">
+                            <button type="button" class="btn btn-info" id="addFacility">
                                 <i class="fas fa-plus me-2"></i>Save Center
                             </button>
                         </div>
                     </form>
 
                 </div>
-                <script>
-function redirectToPage() {
-    window.location.href = "<?= base_url('superadmin/CenterManagement2'); ?>";
-}
+                
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.getElementById("addFacility").addEventListener("click", function () {
+    Swal.fire({
+        title: "Success!",
+        text: "Center added successfully.",
+        icon: "success",
+        confirmButtonText: "OK"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "<?= base_url('superadmin/CenterManagement2'); ?>";
+        }
+    });
+
+    // OR if you want auto-redirect without pressing OK button:
+    /*
+    Swal.fire({
+        title: "Success!",
+        text: "Center added successfully.",
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false
+    }).then(() => {
+        window.location.href = "<?= base_url('superadmin/CenterManagement2'); ?>";
+    });
+    */
+});
 </script>
 
                 <script>
