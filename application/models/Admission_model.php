@@ -235,10 +235,11 @@ class Admission_model extends CI_Model
         return $query->result_array();
     }
    public function get_students_expiring_soon()
-{
-    $sql = "
+    {
+        $sql = "
         SELECT 
             s.*,
+            cd.name AS center_name,
             DATE_ADD(s.joining_date, INTERVAL s.course_duration * 30 DAY) AS expiry_date,
             CASE 
                 WHEN DATE_ADD(s.joining_date, INTERVAL s.course_duration * 30 DAY) < CURDATE() THEN 'Expired'
@@ -246,13 +247,13 @@ class Admission_model extends CI_Model
                 ELSE 'Active'
             END AS status
         FROM students s
+        INNER JOIN center_details cd ON s.center_id = cd.id
         WHERE DATE_ADD(s.joining_date, INTERVAL s.course_duration * 30 DAY) <= DATE_ADD(CURDATE(), INTERVAL 10 DAY)
     ";
 
-    $query = $this->db->query($sql);
-    return $query->result_array();
-}
-
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
 
    public function get_students_expiring_soon_center($center_id)
 {

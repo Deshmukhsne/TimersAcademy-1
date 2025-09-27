@@ -205,7 +205,7 @@
             <td>${index + 1}</td>
             <td>${student.id}</td>
             <td>${student.name}</td>
-            <td>${student.center_id}</td>
+           <td>${student.center_name}</td>
             <td>${student.contact}</td>
             <td>${student.email}</td>
             <td>${student.joining_date}</td>
