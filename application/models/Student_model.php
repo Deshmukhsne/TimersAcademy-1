@@ -279,7 +279,7 @@ public function get_students()
     $this->db->join('batches', 'students.batch_id = batches.id', 'left');
     $this->db->join('center_details', 'students.center_id = center_details.id', 'left'); // if needed
     $query = $this->db->get();
-    // print_r($query->result_array());die;
+    //  print_r($query->result_array());die;
     return $query->result_array();
 }
 // ---------------------------------------26/9/25-------prajwal
