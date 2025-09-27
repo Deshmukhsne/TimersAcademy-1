@@ -766,6 +766,30 @@
           $('#contentWrapper').toggleClass('minimized', isMinimized);
         }
       });
+
+      $('#searchEvents').on('keyup', function() {
+        const value = $(this).val().toLowerCase();
+        const container = $('.events-container');
+
+        // Reset: show all cards
+        $('.event-card').parent().show();
+
+        if (value.trim() !== "") {
+          const matches = [];
+          const nonMatches = [];
+
+          $('.event-card').each(function() {
+            if ($(this).text().toLowerCase().indexOf(value) > -1) {
+              matches.push($(this).closest('.col-lg-4, .col-md-6'));
+            } else {
+              nonMatches.push($(this).closest('.col-lg-4, .col-md-6'));
+            }
+          });
+
+          // Clear container and re-append with matches first
+          container.empty().append(matches).append(nonMatches);
+        }
+      });
     </script>
 </body>
 
