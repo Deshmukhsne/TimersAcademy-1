@@ -9,7 +9,11 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
+<<<<<<< HEAD
 	'database' => 'mybadmintondb',
+=======
+	'database' => 'badmintondb',
+>>>>>>> 5042d69 (dashboard sizing)
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
