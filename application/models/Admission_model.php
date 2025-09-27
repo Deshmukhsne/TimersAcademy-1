@@ -234,7 +234,7 @@ class Admission_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
-   public function get_students_expiring_soon()
+    public function get_students_expiring_soon()
     {
         $sql = "
         SELECT 
@@ -255,9 +255,9 @@ class Admission_model extends CI_Model
         return $query->result_array();
     }
 
-   public function get_students_expiring_soon_center($center_id)
-{
-    $sql = "
+    public function get_students_expiring_soon_center($center_id)
+    {
+        $sql = "
         SELECT 
             s.*,
             DATE_ADD(s.joining_date, INTERVAL s.course_duration * 30 DAY) AS expiry_date,
@@ -271,9 +271,9 @@ class Admission_model extends CI_Model
           AND DATE_ADD(s.joining_date, INTERVAL s.course_duration * 30 DAY) <= DATE_ADD(CURDATE(), INTERVAL 10 DAY)
     ";
 
-    $query = $this->db->query($sql, [$center_id]);
-    return $query->result_array();
-}
+        $query = $this->db->query($sql, [$center_id]);
+        return $query->result_array();
+    }
 
     public function get_facility_by_student_id($student_id)
     {
@@ -283,5 +283,45 @@ class Admission_model extends CI_Model
             ->get('student_facilities')
             ->result_array();
     }
+
+
+
+    public function insert_notification($center_id)
+    {
+     
+        $center = $this->db->get_where('center_details', ['id' => $center_id])->row();
+
+        if ($center) {
+          
+            $message = 'A new student has been admitted to the Badminton Academy at center: ' . $center->name;
+
+            
+            return $this->db->insert('notifications', [
+                'type' => 'new_admission',
+                'title' => 'New Admission Confirmed',
+                'message' => $message,
+                'item_id' => 12,
+                'is_read' => 0,
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
+        }
+
+        return false; // Center not found
+    }
+
+
+    public function insert_notification_renew()
+    {
+        return $this->db->insert('notifications', [
+
+            'type' => 'renew_admission',
+            'title' => 'Renew  Admission Confirmed',
+            'message' => 'A re_new student has been done to the Badminton Academy.',
+            'item_id' => 12
+        ]);
+    }
+
+
+
 }
 ?>
