@@ -396,6 +396,9 @@
   <?php $this->load->view('superadmin/Include/Navbar') ?>
   <!-- Dashboard Content -->
   <div class="dashboard-wrapper" id="dashboardWrapper">
+    <div class="container">
+    <h4>Dashboard </h4>
+</div>
     <div class="container-fluid px-3">
       <!-- Stats Cards -->
       <div class="row g-3 mb-4 text-center">
@@ -460,7 +463,7 @@
         </div>
 
         <div class="col-lg-3">
-          <div class="center-box mb-3" style="background: #f7efef;">
+          <div class="center-box mb-3" style="background: #f7efef; height:296px;">
             <h6 class="fw-bold text-start">Centers</h6>
             <div class="center-list mt-3">
               <?php if (!empty($centers)): ?>
@@ -481,7 +484,7 @@
 
           <div class="center-box">
             <h6>Student Distribution</h6>
-            <div style="position:relative; height:180px;">
+            <div style="position:relative; height:264px;">
               <canvas id="studentChart"></canvas>
             </div>
             <div class="mt-3">
