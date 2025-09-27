@@ -298,7 +298,7 @@ if (!isset($grand_alltime)) {
                     <div style="display:flex;gap:8px;align-items:center">
                         <div style="max-width:250px">
                             <!-- Updated placeholder to indicate ID search also works -->
-                            <input type="text" id="globalSearch" class="form-control" placeholder="🔍 Search Centers or enter Center ID..." style="width:100%; padding:8px; border-radius:6px; border:1px solid #e6e6e6; font-family:inherit">
+                            <input type="text" id="globalSearch" class="form-control" placeholder="🔍 Search Center/ID" style="width:100%; padding:8px; border-radius:6px; border:1px solid #e6e6e6; font-family:inherit">
                         </div>
                     </div>
                 </div>

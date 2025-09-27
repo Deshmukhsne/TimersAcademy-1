@@ -255,10 +255,10 @@
                             </div>
                         </div>
 
-                        <div class="card-footer text-muted small d-flex justify-content-between">
+                        <!-- <div class="card-footer text-muted small d-flex justify-content-between">
                             <div>* This list is static for demo purposes. Integrate with DB later via a Model.</div>
                             <div class="text-end"><span class="me-2">Showing 4 of 4 records</span></div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
