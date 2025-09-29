@@ -610,14 +610,43 @@
       };
 
       const attOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false }, tooltip: { enabled: true } },
-        scales: {
-          x: { grid: { display: false }, ticks: { font: { size: 12 } } },
-          y: { beginAtZero: true, max: 110, grid: { display: false }, ticks: { stepSize: 25, font: { size: 12 } } }
-        }
-      };
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false }, tooltip: { enabled: true } },
+  scales: {
+    x: {
+      grid: { display: false },
+      ticks: { font: { size: 12 } },
+      title: {
+        // shorter text and responsive display/size
+        display: ctx => (ctx && ctx.chart && ctx.chart.width) ? (ctx.chart.width > 360) : true,
+        text: 'Week Days',
+        font: {
+          size: ctx => (ctx && ctx.chart && ctx.chart.width) ? (ctx.chart.width > 480 ? 13 : 11) : 12,
+          weight: '600'
+        },
+        padding: { top: 6 }
+      }
+    },
+    y: {
+      beginAtZero: true,
+      max: 110,
+      grid: { display: false },
+      ticks: { stepSize: 25, font: { size: 12 } },
+      title: {
+        display: ctx => (ctx && ctx.chart && ctx.chart.width) ? (ctx.chart.width > 360) : true,
+        text: 'Student Count',
+        font: {
+          size: ctx => (ctx && ctx.chart && ctx.chart.width) ? (ctx.chart.width > 480 ? 13 : 11) : 12,
+          weight: '600'
+        },
+        padding: { top: 4, bottom: 0 }
+      }
+    }
+  }
+};
+
+
 
       if (window.attendanceChart) {
         window.attendanceChart.data = attData;
@@ -654,7 +683,38 @@
         }]
       };
 
-      const revOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true } }, scales: { y: { beginAtZero: true } } };
+const revOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: true } },
+  scales: {
+    x: {
+      title: {
+        display: ctx => (ctx && ctx.chart && ctx.chart.width) ? (ctx.chart.width > 420) : true,
+        text: 'Month',
+        font: {
+          size: ctx => (ctx && ctx.chart && ctx.chart.width) ? (ctx.chart.width > 700 ? 13 : 11) : 12,
+          weight: '600'
+        },
+        padding: { top: 6 }
+      },
+      ticks: { maxRotation: 45, minRotation: 0 }
+    },
+    y: {
+      beginAtZero: true,
+      title: {
+        display: ctx => (ctx && ctx.chart && ctx.chart.width) ? (ctx.chart.width > 420) : true,
+        text: 'Revenue (₹)',
+        font: {
+          size: ctx => (ctx && ctx.chart && ctx.chart.width) ? (ctx.chart.width > 700 ? 13 : 11) : 12,
+          weight: '600'
+        },
+        padding: { top: 4, bottom: 0 }
+      }
+    }
+  }
+};
+
 
       if (window.revenueChart) {
         window.revenueChart.data = revData;

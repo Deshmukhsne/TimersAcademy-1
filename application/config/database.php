@@ -9,7 +9,11 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
+<<<<<<< HEAD
+	'database' => 'badmintondb',
+=======
 	'database' => 'mybadmintondb',
+>>>>>>> 13900b085677e592c44155223f0ae2145fdcd373
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
