@@ -340,7 +340,7 @@ class Admin extends CI_Controller
             $data['students'] = $this->Student_model->get_all_students();
         } else {
             // admin sees only their center students
-            $data['students'] = $this->Student_model->get_students();
+            $data['students'] = $this->Student_model->get_students($center_id);
         }
 
         $this->load->view('admin/Students', $data); // your view file name

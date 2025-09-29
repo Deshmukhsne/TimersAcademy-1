@@ -272,12 +272,13 @@ public function add_student_facility($data)
     ];
 }
 //
-public function get_students()
+public function get_students($center_id)
 {
     $this->db->select('students.*, batches.batch_name as batch_name, batches.category as category, batches.batch_level, center_details.name as center_name');
     $this->db->from('students');
     $this->db->join('batches', 'students.batch_id = batches.id', 'left');
     $this->db->join('center_details', 'students.center_id = center_details.id', 'left'); // if needed
+    $this->db->where('students.center_id', (int) $center_id);
     $query = $this->db->get();
     //  print_r($query->result_array());die;
     return $query->result_array();

@@ -319,6 +319,30 @@ class Admission extends CI_Controller
         }
     }
 
+    
+
+    public function get_deactive_students_by_center()
+    {
+        header('Content-Type: application/json');
+
+
+        $center_id = $this->session->userdata('id');
+        $students = $this->Admission_model->get_deactive_students_by_center($center_id);
+
+        if ($students) {
+            echo json_encode([
+                'status' => 'success',
+                'count' => count($students),
+                'data' => $students
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'No deactive students found'
+            ]);
+        }
+    }
+
     public function get_deactive_students()
     {
         header('Content-Type: application/json');

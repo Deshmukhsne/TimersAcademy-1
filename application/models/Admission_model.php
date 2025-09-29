@@ -234,6 +234,18 @@ class Admission_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+     public function get_deactive_students_by_center($center_id)
+    {
+        $this->db->select('id, name, contact, center_id, batch_id, total_fees, paid_amount, remaining_amount, joining_date, status');
+        $this->db->from('students');
+        $this->db->where('status', 'Deactive');
+        $this->db->order_by('id', 'DESC');
+        $this->db->where('center_id', $center_id);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    
     public function get_students_expiring_soon()
     {
         $sql = "
@@ -260,15 +272,16 @@ class Admission_model extends CI_Model
         $sql = "
         SELECT 
             s.*,
+            cd.name AS center_name,
             DATE_ADD(s.joining_date, INTERVAL s.course_duration * 30 DAY) AS expiry_date,
             CASE 
                 WHEN DATE_ADD(s.joining_date, INTERVAL s.course_duration * 30 DAY) < CURDATE() THEN 'Expired'
-                WHEN DATE_ADD(s.joining_date, INTERVAL s.course_duration * 30 DAY) BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 10 DAY) THEN 'Expiring Soon'
+                WHEN DATE_ADD(s.joining_date, INTERVAL s.course_duration * 30 DAY) BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 20 DAY) THEN 'Expiring Soon'
                 ELSE 'Active'
             END AS status
         FROM students s
-        WHERE s.center_id = ?
-          AND DATE_ADD(s.joining_date, INTERVAL s.course_duration * 30 DAY) <= DATE_ADD(CURDATE(), INTERVAL 10 DAY)
+        INNER JOIN center_details cd ON s.center_id = cd.id
+        WHERE DATE_ADD(s.joining_date, INTERVAL s.course_duration * 30 DAY) <= DATE_ADD(CURDATE(), INTERVAL 10 DAY)
     ";
 
         $query = $this->db->query($sql, [$center_id]);

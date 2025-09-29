@@ -1133,35 +1133,35 @@
                                     <!--        <?php print_r($student_get_current_batch[0]["contact"]) ?>-->
                                     <!--    </div>-->
                                     <!--</div>-->
-<div class="detail-row">
-    <div class="detail-label">
-        <i class="fas fa-user-tie"></i>
-        Coordinator
-    </div>
-    <div class="detail-value">
-        <?php echo !empty($coordinator['name']) ? $coordinator['name'] : 'N/A'; ?>
-    </div>
-</div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">
+                                            <i class="fas fa-user-tie"></i>
+                                            Coordinator
+                                        </div>
+                                        <div class="detail-value">
+                                            <?php echo !empty($coordinator['name']) ? $coordinator['name'] : 'N/A'; ?>
+                                        </div>
+                                    </div>
 
-<div class="detail-row">
-    <div class="detail-label">
-        <i class="fas fa-phone"></i>
-        Coordinator Phone
-    </div>
-    <div class="detail-value">
-        <?php echo !empty($coordinator['mobile']) ? $coordinator['mobile'] : 'N/A'; ?>
-    </div>
-</div>
+                                    <div class="detail-row">
+                                        <div class="detail-label">
+                                            <i class="fas fa-phone"></i>
+                                            Coordinator Phone
+                                        </div>
+                                        <div class="detail-value">
+                                            <?php echo !empty($coordinator['mobile']) ? $coordinator['mobile'] : 'N/A'; ?>
+                                        </div>
+                                    </div>
 
-<!--<div class="detail-row">-->
-<!--    <div class="detail-label">-->
-<!--        <i class="fas fa-envelope"></i>-->
-<!--        Coordinator Email-->
-<!--    </div>-->
-<!--    <div class="detail-value">-->
-<!--        <?php echo !empty($coordinator['email']) ? $coordinator['email'] : 'N/A'; ?>-->
-<!--    </div>-->
-<!--</div>-->
+                                    <!--<div class="detail-row">-->
+                                    <!--    <div class="detail-label">-->
+                                    <!--        <i class="fas fa-envelope"></i>-->
+                                    <!--        Coordinator Email-->
+                                    <!--    </div>-->
+                                    <!--    <div class="detail-value">-->
+                                    <!--        <?php echo !empty($coordinator['email']) ? $coordinator['email'] : 'N/A'; ?>-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
                                     <div class="detail-row">
                                         <div class="detail-label">
                                             <i class="fas fa-map-marker-alt"></i>
@@ -1331,8 +1331,9 @@
                                         Remaining Amount
                                     </div>
                                     <div class="detail-value">
-                                        ₹<?= number_format($student['remaining_amount'], 2) ?>
+                                        ₹<?= number_format((float) ($student['remaining_amount'] ?? 0.00), 2) ?>
                                     </div>
+
                                 </div>
 
                                 <div class="detail-row">
@@ -1514,10 +1515,10 @@
                         <!--        <div class="stat-label">Sessions Missed</div>-->
                         <!--    </div>-->
 
-                        </div>
+                    </div>
 
-                        <!-- Attendance Table -->
-                        <!-- <div class="attendance-table">
+                    <!-- Attendance Table -->
+                    <!-- <div class="attendance-table">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -1582,63 +1583,62 @@
                             </table>
                         </div> -->
 
-                        <div class="attendance-table">
-                            <?php if (!empty($student_attendace)): ?>
-                                <?php foreach ($student_attendace as $month => $records): ?>
-                                    <h5 class="mt-4 mb-3" style="color:#d9534f;"><?php echo $month; ?></h5>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Day</th>
-                                                <th>Time</th>
-                                                <th>Status</th>
-                                                <!-- <th>Coach</th>
+                    <div class="attendance-table">
+                        <?php if (!empty($student_attendace)): ?>
+                            <?php foreach ($student_attendace as $month => $records): ?>
+                                <h5 class="mt-4 mb-3" style="color:#d9534f;"><?php echo $month; ?></h5>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Day</th>
+                                            <th>Time</th>
+                                            <th>Status</th>
+                                            <!-- <th>Coach</th>
                                                 <th>Remarks</th> -->
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($records as $row): ?>
-                                                <tr>
-                                                    <td><?php echo date("d F Y", strtotime($row['date'])); ?></td>
-                                                    <td><?php echo date("l", strtotime($row['date'])); ?></td>
-                                                    <td><?php echo $row['time']; ?></td>
-                                                    <td>
-                                                        <?php
-                                                        $statusClass = strtolower($row['status']);
-                                                        ?>
-                                                        <span class="attendance-status status-<?php echo $statusClass; ?>">
-                                                            <?php echo $row['status']; ?>
-                                                        </span>
-                                                    </td>
-                                                    <!-- <td>Mr. Vikram Singh</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($records as $row): ?>
+                                            <tr>
+                                                <td><?php echo date("d F Y", strtotime($row['date'])); ?></td>
+                                                <td><?php echo date("l", strtotime($row['date'])); ?></td>
+                                                <td><?php echo $row['time']; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $statusClass = strtolower($row['status']);
+                                                    ?>
+                                                    <span class="attendance-status status-<?php echo $statusClass; ?>">
+                                                        <?php echo $row['status']; ?>
+                                                    </span>
+                                                </td>
+                                                <!-- <td>Mr. Vikram Singh</td>
                                                     <td>Regular attendance</td> -->
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <p>No attendance records found.</p>
-                            <?php endif; ?>
-                        </div>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>No attendance records found.</p>
+                        <?php endif; ?>
+                    </div>
 
 
-                        <!-- Attendance Link -->
-                        <div class="row mt-4">
-                            <div class="col-md-6">
-                                <div class="detail-row">
-                                    <div class="detail-label">
-                                        <i class="fas fa-link"></i>
-                                        Attendance Link
-                                    </div>
-                                    <div class="detail-value">
-                                        <a href="#"
-                                            class="text-primary"><?php print_r($student["attendace_link"]) ?></a>
-                                    </div>
+                    <!-- Attendance Link -->
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="detail-row">
+                                <div class="detail-label">
+                                    <i class="fas fa-link"></i>
+                                    Attendance Link
+                                </div>
+                                <div class="detail-value">
+                                    <a href="#" class="text-primary"><?php print_r($student["attendace_link"]) ?></a>
                                 </div>
                             </div>
-                            <!-- <div class="col-md-6">
+                        </div>
+                        <!-- <div class="col-md-6">
                                 <div class="detail-row">
                                     <div class="detail-label">
                                         <i class="fas fa-qrcode"></i>
@@ -1650,462 +1650,462 @@
                                     </div>
                                 </div>
                             </div> -->
-                        </div>
+                    </div>
 
-                        <!-- Navigation Buttons -->
-                        <div class="nav-buttons">
-                            <button class="nav-btn" onclick="previousSection()" id="prevBtn6">
-                                <i class="fas fa-chevron-left"></i>
-                                Previous
-                            </button>
-                            <div class="progress-indicator">
-                                <span id="stepCounter6">Step 6 of 6</span>
-                                <div class="progress-dots">
-                                    <div class="progress-dot" data-step="1"></div>
-                                    <div class="progress-dot" data-step="2"></div>
-                                    <div class="progress-dot" data-step="3"></div>
-                                    <div class="progress-dot" data-step="4"></div>
-                                    <div class="progress-dot" data-step="5"></div>
-                                    <div class="progress-dot active" data-step="6"></div>
-                                </div>
+                    <!-- Navigation Buttons -->
+                    <div class="nav-buttons">
+                        <button class="nav-btn" onclick="previousSection()" id="prevBtn6">
+                            <i class="fas fa-chevron-left"></i>
+                            Previous
+                        </button>
+                        <div class="progress-indicator">
+                            <span id="stepCounter6">Step 6 of 6</span>
+                            <div class="progress-dots">
+                                <div class="progress-dot" data-step="1"></div>
+                                <div class="progress-dot" data-step="2"></div>
+                                <div class="progress-dot" data-step="3"></div>
+                                <div class="progress-dot" data-step="4"></div>
+                                <div class="progress-dot" data-step="5"></div>
+                                <div class="progress-dot active" data-step="6"></div>
                             </div>
-                            <button class="nav-btn" onclick="nextSection()" id="nextBtn6" disabled>
-                                Next
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
                         </div>
+                        <button class="nav-btn" onclick="nextSection()" id="nextBtn6" disabled>
+                            Next
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Action Buttons -->
-            <div class="row mt-4">
-                <div class="col-12">
-                    <div class="action-buttons">
-                        <!-- <button type="button" class="btn-edit" data-bs-toggle="modal"
+        <!-- Action Buttons -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="action-buttons">
+                    <!-- <button type="button" class="btn-edit" data-bs-toggle="modal"
                             data-bs-target="#editStudentModal">
                             <i class="fas fa-edit me-2"></i>
                             Edit Student
                         </button> -->
-                        <button type="button" class="btn-renew" onclick="renewAdmission()">
-                            <i class="fas fa-sync-alt me-2"></i>
-                            Renew Admission
-                        </button>
+                    <button type="button" class="btn-renew" onclick="renewAdmission()">
+                        <i class="fas fa-sync-alt me-2"></i>
+                        Renew Admission
+                    </button>
 
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- </div> -->
-
-        <!-- Edit Student Modal -->
-        <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                <div class="modal-content shadow-lg rounded-3">
-
-                    <!-- Header -->
-                    <div class="modal-header bg-gradient bg-primary text-white">
-                        <h5 class="modal-title" id="editStudentModalLabel">
-                            <i class="fas fa-user-edit me-2"></i> Edit Student Details
-                        </h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </div>
-
-                    <!-- Body -->
-                    <div class="modal-body">
-                        <form id="editStudentForm" novalidate>
-                            <input type="hidden" id="studentId">
-
-                            <!-- Student & Parent -->
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Student Name</label>
-                                    <input type="text" class="form-control" id="studentName"
-                                        placeholder="Enter full name" required>
-                                    <div class="invalid-feedback">Please enter student name.</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Parent Name</label>
-                                    <input type="text" class="form-control" id="parentName"
-                                        placeholder="Enter parent/guardian name" required>
-                                    <div class="invalid-feedback">Please enter parent name.</div>
-                                </div>
-                            </div>
-
-                            <!-- Email & Contact -->
-                            <div class="row g-3 mt-2">
-                                <div class="col-md-6">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="emailAddress"
-                                        placeholder="example@email.com" required>
-                                    <div class="invalid-feedback">Enter a valid email.</div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Contact Number</label>
-                                    <input type="tel" class="form-control" id="contactNumber"
-                                        placeholder="10-digit number" pattern="[0-9]{10}" required>
-                                    <div class="invalid-feedback">Enter a valid 10-digit number.</div>
-                                </div>
-                            </div>
-
-                            <!-- Fees -->
-                            <div class="row g-3 mt-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Course Fees</label>
-                                    <input type="number" class="form-control" id="courseFees"
-                                        placeholder="Enter total fees" min="0" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Amount Paid</label>
-                                    <input type="number" class="form-control" id="paidAmount"
-                                        placeholder="Enter paid amount" min="0" required>
-                                </div>
-                            </div>
-
-                            <div class="row g-3 mt-2">
-                                <div class="col-md-6">
-                                    <label class="form-label">Remaining Amount</label>
-                                    <input type="text" class="form-control fw-bold" id="remainingAmount" readonly>
-                                    <small id="remainingHint" class="text-muted"></small>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Payment Method</label>
-                                    <select class="form-select" id="paymentMethod" required>
-                                        <option value="">Select method</option>
-                                        <option value="cash">Cash</option>
-                                        <option value="card">Card</option>
-                                        <option value="online">Online</option>
-                                    </select>
-                                    <div class="invalid-feedback">Please select payment method.</div>
-                                </div>
-                            </div>
-
-                            <!-- Address -->
-                            <div class="mt-3">
-                                <label class="form-label">Address</label>
-                                <textarea class="form-control" id="address" rows="2" placeholder="Enter student address"
-                                    required></textarea>
-                                <div class="invalid-feedback">Please enter address.</div>
-                            </div>
-
-                        </form>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal">
-                            <i class="fas fa-times me-1"></i> Cancel
-                        </button>
-                        <button class="btn btn-success" onclick="saveStudentChanges()">
-                            <i class="fas fa-save me-1"></i> Save Changes
-                        </button>
-                    </div>
 
                 </div>
             </div>
         </div>
-        <!-- Bootstrap 5 JS (needs Popper included) -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Interactivity Script -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            (() => {
-                'use strict';
-                const form = document.getElementById('editStudentForm');
-                const courseFees = document.getElementById('courseFees');
-                const paidAmount = document.getElementById('paidAmount');
-                const remainingAmount = document.getElementById('remainingAmount');
-                const remainingHint = document.getElementById('remainingHint');
+    </div>
+    <!-- </div> -->
 
-                function calculateRemaining() {
-                    const fees = parseFloat(courseFees.value) || 0;
-                    const paid = parseFloat(paidAmount.value) || 0;
-                    const remaining = fees - paid;
-                    remainingAmount.value = remaining >= 0 ? `₹ ${remaining}` : "Overpaid!";
-                    remainingAmount.classList.toggle('is-invalid', remaining < 0);
-                    remainingAmount.classList.toggle('text-danger', remaining < 0);
-                    remainingAmount.classList.toggle('text-success', remaining >= 0);
-                    remainingHint.textContent = remaining < 0 ? "⚠ Overpayment detected!" : "";
+    <!-- Edit Student Modal -->
+    <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content shadow-lg rounded-3">
+
+                <!-- Header -->
+                <div class="modal-header bg-gradient bg-primary text-white">
+                    <h5 class="modal-title" id="editStudentModalLabel">
+                        <i class="fas fa-user-edit me-2"></i> Edit Student Details
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+                    <form id="editStudentForm" novalidate>
+                        <input type="hidden" id="studentId">
+
+                        <!-- Student & Parent -->
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Student Name</label>
+                                <input type="text" class="form-control" id="studentName" placeholder="Enter full name"
+                                    required>
+                                <div class="invalid-feedback">Please enter student name.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Parent Name</label>
+                                <input type="text" class="form-control" id="parentName"
+                                    placeholder="Enter parent/guardian name" required>
+                                <div class="invalid-feedback">Please enter parent name.</div>
+                            </div>
+                        </div>
+
+                        <!-- Email & Contact -->
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="emailAddress"
+                                    placeholder="example@email.com" required>
+                                <div class="invalid-feedback">Enter a valid email.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Number</label>
+                                <input type="tel" class="form-control" id="contactNumber" placeholder="10-digit number"
+                                    pattern="[0-9]{10}" required>
+                                <div class="invalid-feedback">Enter a valid 10-digit number.</div>
+                            </div>
+                        </div>
+
+                        <!-- Fees -->
+                        <div class="row g-3 mt-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Course Fees</label>
+                                <input type="number" class="form-control" id="courseFees" placeholder="Enter total fees"
+                                    min="0" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Amount Paid</label>
+                                <input type="number" class="form-control" id="paidAmount"
+                                    placeholder="Enter paid amount" min="0" required>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-6">
+                                <label class="form-label">Remaining Amount</label>
+                                <input type="text" class="form-control fw-bold" id="remainingAmount" readonly>
+                                <small id="remainingHint" class="text-muted"></small>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Payment Method</label>
+                                <select class="form-select" id="paymentMethod" required>
+                                    <option value="">Select method</option>
+                                    <option value="cash">Cash</option>
+                                    <option value="card">Card</option>
+                                    <option value="online">Online</option>
+                                </select>
+                                <div class="invalid-feedback">Please select payment method.</div>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="mt-3">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-control" id="address" rows="2" placeholder="Enter student address"
+                                required></textarea>
+                            <div class="invalid-feedback">Please enter address.</div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i> Cancel
+                    </button>
+                    <button class="btn btn-success" onclick="saveStudentChanges()">
+                        <i class="fas fa-save me-1"></i> Save Changes
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap 5 JS (needs Popper included) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Interactivity Script -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        (() => {
+            'use strict';
+            const form = document.getElementById('editStudentForm');
+            const courseFees = document.getElementById('courseFees');
+            const paidAmount = document.getElementById('paidAmount');
+            const remainingAmount = document.getElementById('remainingAmount');
+            const remainingHint = document.getElementById('remainingHint');
+
+            function calculateRemaining() {
+                const fees = parseFloat(courseFees.value) || 0;
+                const paid = parseFloat(paidAmount.value) || 0;
+                const remaining = fees - paid;
+                remainingAmount.value = remaining >= 0 ? `₹ ${remaining}` : "Overpaid!";
+                remainingAmount.classList.toggle('is-invalid', remaining < 0);
+                remainingAmount.classList.toggle('text-danger', remaining < 0);
+                remainingAmount.classList.toggle('text-success', remaining >= 0);
+                remainingHint.textContent = remaining < 0 ? "⚠ Overpayment detected!" : "";
+            }
+
+            courseFees.addEventListener('input', calculateRemaining);
+            paidAmount.addEventListener('input', calculateRemaining);
+
+            // Form validation on save
+            window.saveStudentChanges = function () {
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    Swal.fire('Error', 'Please fix the highlighted errors.', 'error');
+                    return;
                 }
 
-                courseFees.addEventListener('input', calculateRemaining);
-                paidAmount.addEventListener('input', calculateRemaining);
-
-                // Form validation on save
-                window.saveStudentChanges = function () {
-                    if (!form.checkValidity()) {
-                        form.classList.add('was-validated');
-                        Swal.fire('Error', 'Please fix the highlighted errors.', 'error');
-                        return;
-                    }
-
-                    Swal.fire({
-                        title: 'Saving...',
-                        text: 'Student details are being updated.',
-                        icon: 'info',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then(() => {
-                        Swal.fire('Success!', 'Student details updated successfully.', 'success');
-                        bootstrap.Modal.getInstance(document.getElementById('editStudentModal')).hide();
-                    });
-                };
-            })();
-        </script>
+                Swal.fire({
+                    title: 'Saving...',
+                    text: 'Student details are being updated.',
+                    icon: 'info',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    Swal.fire('Success!', 'Student details updated successfully.', 'success');
+                    bootstrap.Modal.getInstance(document.getElementById('editStudentModal')).hide();
+                });
+            };
+        })();
+    </script>
 
 
 
-        <!-- Bootstrap & jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
-        <!-- SweetAlert2 -->
-        <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <!-- Bootstrap & jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
+    <!-- SweetAlert2 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
-        <script>
-            // Sections array for navigation
-            const sections = [
-                'personalDetails',
-                'admissionDetails',
-                'batchDetails',
-                'feesDetails',
-                'facilities',
-                'attendance'
-            ];
+    <script>
+        // Sections array for navigation
+        const sections = [
+            'personalDetails',
+            'admissionDetails',
+            'batchDetails',
+            'feesDetails',
+            'facilities',
+            'attendance'
+        ];
 
-            let currentSectionIndex = 0;
+        let currentSectionIndex = 0;
 
-            // Show section
-            function showSection(event, sectionId) {
-                event.preventDefault();
+        // Show section
+        function showSection(event, sectionId) {
+            event.preventDefault();
 
-                // Find section index
-                const sectionIndex = sections.indexOf(sectionId);
-                if (sectionIndex !== -1) {
-                    currentSectionIndex = sectionIndex;
-                }
+            // Find section index
+            const sectionIndex = sections.indexOf(sectionId);
+            if (sectionIndex !== -1) {
+                currentSectionIndex = sectionIndex;
+            }
+
+            // Hide all sections
+            $('.section-content').removeClass('active');
+
+            // Show selected section
+            $('#' + sectionId).addClass('active');
+
+            // Update menu items
+            $('.menu-item').removeClass('active');
+            $(event.target).addClass('active');
+
+            // Update navigation buttons
+            updateNavigationButtons();
+        }
+
+        // Next section
+        function nextSection() {
+            if (currentSectionIndex < sections.length - 1) {
+                currentSectionIndex++;
+                const nextSectionId = sections[currentSectionIndex];
 
                 // Hide all sections
                 $('.section-content').removeClass('active');
 
-                // Show selected section
-                $('#' + sectionId).addClass('active');
+                // Show next section
+                $('#' + nextSectionId).addClass('active');
 
                 // Update menu items
                 $('.menu-item').removeClass('active');
-                $(event.target).addClass('active');
+                $('.menu-item').eq(currentSectionIndex).addClass('active');
 
                 // Update navigation buttons
                 updateNavigationButtons();
             }
+        }
 
-            // Next section
-            function nextSection() {
-                if (currentSectionIndex < sections.length - 1) {
-                    currentSectionIndex++;
-                    const nextSectionId = sections[currentSectionIndex];
+        // Previous section
+        function previousSection() {
+            if (currentSectionIndex > 0) {
+                currentSectionIndex--;
+                const prevSectionId = sections[currentSectionIndex];
 
-                    // Hide all sections
-                    $('.section-content').removeClass('active');
+                // Hide all sections
+                $('.section-content').removeClass('active');
 
-                    // Show next section
-                    $('#' + nextSectionId).addClass('active');
+                // Show previous section
+                $('#' + prevSectionId).addClass('active');
 
-                    // Update menu items
-                    $('.menu-item').removeClass('active');
-                    $('.menu-item').eq(currentSectionIndex).addClass('active');
+                // Update menu items
+                $('.menu-item').removeClass('active');
+                $('.menu-item').eq(currentSectionIndex).addClass('active');
 
-                    // Update navigation buttons
-                    updateNavigationButtons();
-                }
-            }
-
-            // Previous section
-            function previousSection() {
-                if (currentSectionIndex > 0) {
-                    currentSectionIndex--;
-                    const prevSectionId = sections[currentSectionIndex];
-
-                    // Hide all sections
-                    $('.section-content').removeClass('active');
-
-                    // Show previous section
-                    $('#' + prevSectionId).addClass('active');
-
-                    // Update menu items
-                    $('.menu-item').removeClass('active');
-                    $('.menu-item').eq(currentSectionIndex).addClass('active');
-
-                    // Update navigation buttons
-                    updateNavigationButtons();
-                }
-            }
-
-            // Update navigation buttons
-            function updateNavigationButtons() {
-                // Update prev button
-                if (currentSectionIndex === 0) {
-                    $('#prevBtn, #prevBtn2, #prevBtn3, #prevBtn4, #prevBtn5, #prevBtn6').prop('disabled', true);
-                } else {
-                    $('#prevBtn, #prevBtn2, #prevBtn3, #prevBtn4, #prevBtn5, #prevBtn6').prop('disabled', false);
-                }
-
-                // Update next button
-                if (currentSectionIndex === sections.length - 1) {
-                    $('#nextBtn, #nextBtn2, #nextBtn3, #nextBtn4, #nextBtn5, #nextBtn6').prop('disabled', true);
-                } else {
-                    $('#nextBtn, #nextBtn2, #nextBtn3, #nextBtn4, #nextBtn5, #nextBtn6').prop('disabled', false);
-                }
-
-                // Update step counter
-                const stepText = `Step ${currentSectionIndex + 1} of ${sections.length}`;
-                $('#stepCounter, #stepCounter2, #stepCounter3, #stepCounter4, #stepCounter5, #stepCounter6').text(stepText);
-
-                // Update progress dots
-                $('.progress-dot').removeClass('active');
-                $(`.progress-dot[data-step="${currentSectionIndex + 1}"]`).addClass('active');
-            }
-
-            // Save student changes
-            function saveStudentChanges() {
-                // Get form data
-                const formData = {
-                    studentName: $('#studentName').val(),
-                    parentName: $('#parentName').val(),
-                    emailAddress: $('#emailAddress').val(),
-                    contactNumber: $('#contactNumber').val(),
-                    dateOfBirth: $('#dateOfBirth').val(),
-                    emergencyContact: $('#emergencyContact').val(),
-                    address: $('#address').val(),
-                    batchCenter: $('#batchCenter').val(),
-                    batchTime: $('#batchTime').val(),
-                    studentStatus: $('#studentStatus').val(),
-                    courseFees: $('#courseFees').val()
-                };
-
-                // Validate form
-                if (!formData.studentName || !formData.parentName || !formData.emailAddress || !formData.contactNumber) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Validation Error',
-                        text: 'Please fill in all required fields.',
-                        confirmButtonColor: '#ff4040'
-                    });
-                    return;
-                }
-
-                // Simulate API call
-                Swal.fire({
-                    title: 'Saving Changes...',
-                    html: 'Please wait while we update the student details.',
-                    timer: 2000,
-                    timerProgressBar: true,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                }).then(() => {
-                    // Success message
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Student Updated!',
-                        text: 'Student details have been successfully updated.',
-                        confirmButtonColor: '#28a745'
-                    }).then(() => {
-                        // Hide modal
-                        $('#editStudentModal').modal('hide');
-
-                        // Update the displayed data (you can implement this based on your needs)
-                        updateDisplayedData(formData);
-                    });
-                });
-            }
-
-            // Update displayed data after edit
-            function updateDisplayedData(formData) {
-                // This function would update the displayed data on the page
-                // Implementation depends on your specific requirements
-                console.log('Updated data:', formData);
-            }
-
-            // Renew admission
-
-
-            async function renewAdmission() {
-                try {
-                    // Get the student ID from the URL
-                    const pathParts = window.location.pathname.split('/');
-                    const studentId = pathParts[pathParts.length - 1]; // last part of the URL
-
-                    let formData = new FormData();
-                    formData.append("student_id", studentId);
-
-                    // Add today's date as joining date
-                    let today = new Date().toISOString().split("T")[0];
-                    formData.append("joining_date", today);
-
-                    // Base URL from PHP
-                    const baseUrl = "<?php echo base_url(); ?>";
-
-                    const response = await fetch(baseUrl + "Admission/renewaddmission", {
-                        method: "POST",
-                        body: formData
-                    });
-
-                    const result = await response.json();
-                    console.log("API Response:", result);
-
-                    if (response.ok && result.status === 'success') {
-                        Swal.fire("Success", result.message || "Admission renewed successfully!", "success");
-                    } else {
-                        Swal.fire("Failed", result.message || "Something went wrong.", "error");
-                    }
-                } catch (error) {
-                    console.error("Error:", error);
-                    Swal.fire("Error", "Server error occurred. Please try again later.", "error");
-                }
-            }
-
-
-
-            // function renewAdmission() {
-            // Swal.fire({
-            // title: 'Renew Admission',
-            // text: 'Are you sure you want to renew this student\'s admission?',
-            // icon: 'question',
-            // showCancelButton: true,
-            // confirmButtonColor: '#28a745',
-            // cancelButtonColor: '#6c757d',
-            // confirmButtonText: 'Yes, Renew',
-            // cancelButtonText: 'Cancel'
-            // }).then((result) => {
-            // if (result.isConfirmed) {
-            // // Simulate renewal process
-            // Swal.fire({
-            // title: 'Processing Renewal...',
-            // html: 'Please wait while we process the admission renewal.',
-            // timer: 2000,
-            // timerProgressBar: true,
-            // didOpen: () => {
-            // Swal.showLoading();
-            // }
-            // }).then(() => {
-            // Swal.fire({
-            // icon: 'success',
-            // title: 'Admission Renewed!',
-            // text: 'Student admission has been successfully renewed.',
-            // confirmButtonColor: '#28a745'
-            // });
-            // });
-            // }
-            // });
-            // }
-
-            // Initialize navigation buttons on page load
-            $(document).ready(function () {
+                // Update navigation buttons
                 updateNavigationButtons();
+            }
+        }
+
+        // Update navigation buttons
+        function updateNavigationButtons() {
+            // Update prev button
+            if (currentSectionIndex === 0) {
+                $('#prevBtn, #prevBtn2, #prevBtn3, #prevBtn4, #prevBtn5, #prevBtn6').prop('disabled', true);
+            } else {
+                $('#prevBtn, #prevBtn2, #prevBtn3, #prevBtn4, #prevBtn5, #prevBtn6').prop('disabled', false);
+            }
+
+            // Update next button
+            if (currentSectionIndex === sections.length - 1) {
+                $('#nextBtn, #nextBtn2, #nextBtn3, #nextBtn4, #nextBtn5, #nextBtn6').prop('disabled', true);
+            } else {
+                $('#nextBtn, #nextBtn2, #nextBtn3, #nextBtn4, #nextBtn5, #nextBtn6').prop('disabled', false);
+            }
+
+            // Update step counter
+            const stepText = `Step ${currentSectionIndex + 1} of ${sections.length}`;
+            $('#stepCounter, #stepCounter2, #stepCounter3, #stepCounter4, #stepCounter5, #stepCounter6').text(stepText);
+
+            // Update progress dots
+            $('.progress-dot').removeClass('active');
+            $(`.progress-dot[data-step="${currentSectionIndex + 1}"]`).addClass('active');
+        }
+
+        // Save student changes
+        function saveStudentChanges() {
+            // Get form data
+            const formData = {
+                studentName: $('#studentName').val(),
+                parentName: $('#parentName').val(),
+                emailAddress: $('#emailAddress').val(),
+                contactNumber: $('#contactNumber').val(),
+                dateOfBirth: $('#dateOfBirth').val(),
+                emergencyContact: $('#emergencyContact').val(),
+                address: $('#address').val(),
+                batchCenter: $('#batchCenter').val(),
+                batchTime: $('#batchTime').val(),
+                studentStatus: $('#studentStatus').val(),
+                courseFees: $('#courseFees').val()
+            };
+
+            // Validate form
+            if (!formData.studentName || !formData.parentName || !formData.emailAddress || !formData.contactNumber) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please fill in all required fields.',
+                    confirmButtonColor: '#ff4040'
+                });
+                return;
+            }
+
+            // Simulate API call
+            Swal.fire({
+                title: 'Saving Changes...',
+                html: 'Please wait while we update the student details.',
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            }).then(() => {
+                // Success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Student Updated!',
+                    text: 'Student details have been successfully updated.',
+                    confirmButtonColor: '#28a745'
+                }).then(() => {
+                    // Hide modal
+                    $('#editStudentModal').modal('hide');
+
+                    // Update the displayed data (you can implement this based on your needs)
+                    updateDisplayedData(formData);
+                });
             });
-        </script>
+        }
+
+        // Update displayed data after edit
+        function updateDisplayedData(formData) {
+            // This function would update the displayed data on the page
+            // Implementation depends on your specific requirements
+            console.log('Updated data:', formData);
+        }
+
+        // Renew admission
+
+
+        async function renewAdmission() {
+            try {
+                // Get the student ID from the URL
+                const pathParts = window.location.pathname.split('/');
+                const studentId = pathParts[pathParts.length - 1]; // last part of the URL
+
+                let formData = new FormData();
+                formData.append("student_id", studentId);
+
+                // Add today's date as joining date
+                let today = new Date().toISOString().split("T")[0];
+                formData.append("joining_date", today);
+
+                // Base URL from PHP
+                const baseUrl = "<?php echo base_url(); ?>";
+
+                const response = await fetch(baseUrl + "Admission/renewaddmission", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+                console.log("API Response:", result);
+
+                if (response.ok && result.status === 'success') {
+                    Swal.fire("Success", result.message || "Admission renewed successfully!", "success");
+                } else {
+                    Swal.fire("Failed", result.message || "Something went wrong.", "error");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                Swal.fire("Error", "Server error occurred. Please try again later.", "error");
+            }
+        }
+
+
+
+        // function renewAdmission() {
+        // Swal.fire({
+        // title: 'Renew Admission',
+        // text: 'Are you sure you want to renew this student\'s admission?',
+        // icon: 'question',
+        // showCancelButton: true,
+        // confirmButtonColor: '#28a745',
+        // cancelButtonColor: '#6c757d',
+        // confirmButtonText: 'Yes, Renew',
+        // cancelButtonText: 'Cancel'
+        // }).then((result) => {
+        // if (result.isConfirmed) {
+        // // Simulate renewal process
+        // Swal.fire({
+        // title: 'Processing Renewal...',
+        // html: 'Please wait while we process the admission renewal.',
+        // timer: 2000,
+        // timerProgressBar: true,
+        // didOpen: () => {
+        // Swal.showLoading();
+        // }
+        // }).then(() => {
+        // Swal.fire({
+        // icon: 'success',
+        // title: 'Admission Renewed!',
+        // text: 'Student admission has been successfully renewed.',
+        // confirmButtonColor: '#28a745'
+        // });
+        // });
+        // }
+        // });
+        // }
+
+        // Initialize navigation buttons on page load
+        $(document).ready(function () {
+            updateNavigationButtons();
+        });
+    </script>
 
 
 
@@ -2114,160 +2114,160 @@
 
 
 
-        <style>
-            /* Navigation Buttons */
+    <style>
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding: 20px 0;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 64, 64, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .nav-btn:disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--primary-color);
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            border: none;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(255, 64, 64, 0.25);
+        }
+
+        .modal-footer {
+            border-top: 1px solid #e0e0e0;
+            padding: 20px 30px;
+        }
+
+        .btn-save {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 64, 64, 0.3);
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+            color: white;
+        }
+
+        /* Responsive Design for Navigation */
+        @media (max-width: 768px) {
             .nav-buttons {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-top: 30px;
-                padding: 20px 0;
-                border-top: 1px solid #e0e0e0;
+                flex-direction: column;
+                gap: 15px;
             }
 
-            .nav-btn {
-                background: var(--primary-gradient);
-                color: white;
-                border: none;
-                padding: 12px 25px;
-                border-radius: 25px;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                text-decoration: none;
-            }
-
-            .nav-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(255, 64, 64, 0.3);
-                color: white;
-                text-decoration: none;
-            }
-
-            .nav-btn:disabled {
-                background: #6c757d;
-                cursor: not-allowed;
-                transform: none;
-                box-shadow: none;
-            }
-
-            .nav-btn:disabled:hover {
-                transform: none;
-                box-shadow: none;
-            }
-
-            /* Progress Indicator */
             .progress-indicator {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                color: #666;
-                font-weight: 500;
+                order: -1;
             }
-
-            .progress-dots {
-                display: flex;
-                gap: 5px;
-            }
-
-            .progress-dot {
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background: #e0e0e0;
-                transition: all 0.3s ease;
-            }
-
-            .progress-dot.active {
-                background: var(--primary-color);
-            }
-
-            /* Modal Styles */
-            .modal-content {
-                border-radius: 15px;
-                border: none;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            }
-
-            .modal-header {
-                background: var(--primary-gradient);
-                color: white;
-                border-radius: 15px 15px 0 0;
-                border: none;
-            }
-
-            .modal-body {
-                padding: 30px;
-            }
-
-            .form-label {
-                font-weight: 600;
-                color: #333;
-                margin-bottom: 8px;
-            }
-
-            .form-control {
-                border-radius: 8px;
-                border: 1px solid #e0e0e0;
-                padding: 12px 15px;
-                transition: all 0.3s ease;
-            }
-
-            .form-control:focus {
-                border-color: var(--primary-color);
-                box-shadow: 0 0 0 0.2rem rgba(255, 64, 64, 0.25);
-            }
-
-            .modal-footer {
-                border-top: 1px solid #e0e0e0;
-                padding: 20px 30px;
-            }
-
-            .btn-save {
-                background: var(--primary-gradient);
-                color: white;
-                border: none;
-                padding: 12px 25px;
-                border-radius: 25px;
-                font-weight: 600;
-                transition: all 0.3s ease;
-            }
-
-            .btn-save:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(255, 64, 64, 0.3);
-                color: white;
-            }
-
-            .btn-cancel {
-                background: #6c757d;
-                color: white;
-                border: none;
-                padding: 12px 25px;
-                border-radius: 25px;
-                font-weight: 600;
-                transition: all 0.3s ease;
-            }
-
-            .btn-cancel:hover {
-                background: #5a6268;
-                color: white;
-            }
-
-            /* Responsive Design for Navigation */
-            @media (max-width: 768px) {
-                .nav-buttons {
-                    flex-direction: column;
-                    gap: 15px;
-                }
-
-                .progress-indicator {
-                    order: -1;
-                }
-            }
-        </style>
+        }
+    </style>
 </body>
 
 </html>

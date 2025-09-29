@@ -621,11 +621,7 @@
 </head>
 
 <body>
-    <!-- Sidebar -->
-    <!-- <?php $this->load->view('superadmin/Include/Sidebar') ?> -->
-
-    <!-- Navbar -->
-    <!-- <?php $this->load->view('superadmin/Include/Navbar') ?> -->
+  
 
     <?php $this->load->view('admin/Include/Sidebar') ?>
 
@@ -1306,7 +1302,7 @@
                                         Remaining Amount
                                     </div>
                                     <div class="detail-value">
-                                        ₹<?= number_format($student['remaining_amount'], 2) ?>
+                                        ₹<?= number_format((float) ($student['remaining_amount'] ?? 0.00), 2) ?>
                                     </div>
                                 </div>
 
