@@ -357,13 +357,19 @@
                                                 </select>
                                             </div>
 
+                                            <?php
+                                            $maxDob = date('Y-m-d', strtotime('-5 years'));
+                                            ?>
+
                                             <div class="form-group col-md-6 col-sm-12">
                                                 <label><i class="fas fa-calendar-alt"></i> Date of Birth *</label>
                                                 <input type="date" class="form-control" name="dob"
                                                     placeholder="Select date of birth" required
-                                                    max="<?php echo date('Y-m-d'); ?>">
-                                                <div class="invalid-feedback">Please select a valid date of birth.</div>
+                                                    max="<?php echo $maxDob; ?>">
+                                                <div class="invalid-feedback">Date of birth must be at least 5 years
+                                                    ago.</div>
                                             </div>
+
                                             <div class="form-group col-md-12 col-sm-12">
                                                 <label><i class="fas fa-home"></i> Address *</label>
                                                 <textarea class="form-control" name="address" rows="2"
