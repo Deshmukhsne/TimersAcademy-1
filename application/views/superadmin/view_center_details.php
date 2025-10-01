@@ -778,10 +778,20 @@
               <input type="date" id="joining_date" name="joining_date" class="form-control" required />
             </div>
           </div>
+              <div class="form-row" id="batchRow" style="display:none;">
+  <div class="form-group col-md-12">
+    <label for="batch_id">Assign Batch <span class="text-danger">*</span></label>
+    <select id="batch_id" name="batch_id" class="form-control">
+      <option value="">Select Batch</option>
+    </select>
+  </div>
+</div>
           <div class="d-flex justify-content-center">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-primary" id="staffSubmitBtn" disabled>Submit</button>
           </div>
+      
+
         </form>
       </div>
     </div>
@@ -1752,51 +1762,92 @@
           }
         });
       });
+// show assign batch field if role is coach
+$('#staff_role').on('change', function () {
+  const role = $(this).val();
+  if (role === 'coach') {
+    $('#batchRow').show();
+
+    // Fetch batches dynamically
+    $.ajax({
+  url: baseUrl + "Center/getBatchesByCenter/" + centerId,
+      method: "GET",
+      dataType: "json",
+      success: function (response) {
+        if (response.status === "success") {
+          let options = '<option value="">Select Batch</option>';
+          response.data.forEach(batch => {
+            options += `<option value="${batch.id}">${batch.batch_name}</option>`;
+          });
+          $('#batch_id').html(options);
+        } else {
+          $('#batch_id').html('<option value="">No batches found</option>');
+        }
+      },
+      error: function () {
+        $('#batch_id').html('<option value="">Error fetching batches</option>');
+      }
+    });
+
+  } else {
+    $('#batchRow').hide();
+    $('#batch_id').val('');
+  }
+});
 
       // Add Staff Handler
-      $('#staffSubmitBtn').click(function () {
-        const form = $('#staffForm');
-        if (!form[0].checkValidity()) {
-          form[0].reportValidity();
-          return;
-        }
-        const payload = {
-          center_id: centerId,
-          staff_name: $('#staff_name').val(),
-          contact_no: $('#contact_no').val(),
-          role: $('#staff_role').val(),
-          joining_date: $('#joining_date').val()
-        };
-        $.ajax({
-          url: baseUrl + "Staff/addStaff",
-          method: "POST",
-          data: JSON.stringify(payload),
-          contentType: "application/json",
-           dataType: "json",
-          success: function (response) {
-            if (response.status === "success") {
-              Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Staff added successfully'
-              });
-              $('#staffModal').modal('hide');
-              fetchCenterData();
-            } else {
-              console.log('Add staff failed:', response.message || 'Unknown error');
-              $('#staffModal').modal('hide');
-              fetchCenterData();
-            }
-          },
-          error: function () {
-            console.log('Error adding staff');
-            $('#staffModal').modal('hide');
-            fetchCenterData();
-          }
-        });
-      });
+ $('#staffSubmitBtn').click(function () {
+  const form = $('#staffForm');
+  if (!form[0].checkValidity()) {
+    form[0].reportValidity();
+    return;
+  }
 
-      // Save Staff Changes
+  const payload = {
+    center_id: centerId,
+    staff_name: $('#staff_name').val(),
+    contact_no: $('#contact_no').val(),
+    role: $('#staff_role').val(),
+    joining_date: $('#joining_date').val()
+  };
+
+  if (payload.role === 'coach') {
+    payload.assigned_batch = $('#batch_id').val();
+    if (!payload.assigned_batch) {
+      Swal.fire({ icon: 'warning', title: 'Required', text: 'Please assign a batch for coach' });
+      return;
+    }
+  }
+
+  $.ajax({
+    url: baseUrl + "Staff/addStaff",
+    method: "POST",
+    data: JSON.stringify(payload),
+    contentType: "application/json",
+    dataType: "json",
+    success: function (response) {
+      if (response.status === "success") {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Staff added successfully'
+        });
+        $('#staffModal').modal('hide');
+        fetchCenterData();
+      } else {
+        console.log('Add staff failed:', response.message || 'Unknown error');
+        $('#staffModal').modal('hide');
+        fetchCenterData();
+      }
+    },
+    error: function () {
+      console.log('Error adding staff');
+      $('#staffModal').modal('hide');
+      fetchCenterData();
+    }
+  });
+});
+// Save Staff Changes
       $('#editStaffSubmitBtn').click(function () {
         const form = $('#editStaffForm');
         if (!form[0].checkValidity()) {
