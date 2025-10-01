@@ -222,6 +222,15 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php
+                                $center_id = isset($_GET['center_id']) ? $_GET['center_id'] : '';
+                                if ($center_id) {
+                                    // Filter $expenses array/object to only include expenses for this center
+                                    $expenses = array_filter($expenses, function($exp) use ($center_id) {
+                                        return $exp->center_id == $center_id;
+                                    });
+                                }
+                                ?>
                                 <?php if (!empty($expenses)): ?>
                                     <?php foreach ($expenses as $exp): ?>
                                         <tr>
@@ -546,7 +555,7 @@
         //         $('.navbar').toggleClass('sidebar-minimized', isMinimized);
         //         $('#contentWrapper').toggleClass('minimized', isMinimized);
         //     }
-        });
+        // });
     </script>
     <script>
         $('#addExpenseForm').on('submit', function() {

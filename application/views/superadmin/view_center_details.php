@@ -457,8 +457,9 @@
             <h4>Expense Details</h4>
             <div id="expenseCards"></div>
             <div class="text-right mt-4">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#expenseModal">
-                <i class="fas fa-plus"></i> Add Expense
+              <!-- Change button name and action -->
+              <button type="button" class="btn btn-primary" id="viewExpenseBtn">
+                <i class="fas fa-eye"></i> View Expense
               </button>
             </div>
           </div>
@@ -623,12 +624,15 @@
               <input type="date" id="editEndDate" name="end_date" class="form-control" required />
             </div>
             <div class="form-group col-md-6">
-              <label for="editBatchCategory">Category <span class="text-danger">*</span></label>
+              <!-- <label for="editBatchCategory">Category <span class="text-danger">*</span></label>
               <select id="editBatchCategory" name="batch_category" class="form-control" required>
                 <option value="">Select Category</option>
                 <option value="individual">Individual</option>
                 <option value="group">Group</option>
-              </select>
+              </select> -->
+              <label for="category" class="form-label required-field">Category</label>
+                                <input type="text" class="form-control" id="category" name="category" required placeholder="Enter category">
+                                <div class="invalid-feedback">Category is required.</div>
             </div>
           </div>
           <div class="form-row">
@@ -643,7 +647,10 @@
             </div>
           </div>
           <div class="d-flex justify-content-center">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">
+    <i class="fas fa-times"></i>
+</button>
             <button type="button" class="btn btn-primary" id="editBatchSubmitBtn" disabled>Save Changes</button>
           </div>
         </form>
@@ -778,20 +785,10 @@
               <input type="date" id="joining_date" name="joining_date" class="form-control" required />
             </div>
           </div>
-              <div class="form-row" id="batchRow" style="display:none;">
-  <div class="form-group col-md-12">
-    <label for="batch_id">Assign Batch <span class="text-danger">*</span></label>
-    <select id="batch_id" name="batch_id" class="form-control">
-      <option value="">Select Batch</option>
-    </select>
-  </div>
-</div>
           <div class="d-flex justify-content-center">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-primary" id="staffSubmitBtn" disabled>Submit</button>
           </div>
-      
-
         </form>
       </div>
     </div>
@@ -854,14 +851,17 @@
         <form id="expenseForm" method="post">
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="expense_category">Category <span class="text-danger">*</span></label>
+              <!-- <label for="expense_category">Category <span class="text-danger">*</span></label>
               <select id="expense_category" name="category" class="form-control" required>
                 <option value="">Select Category</option>
                 <option value="Electricity">Electricity</option>
                 <option value="Water">Water</option>
                 <option value="Maintenance">Maintenance</option>
                 <option value="Other">Other</option>
-              </select>
+              </select> -->
+              <label for="category" class="form-label required-field">Category</label>
+                                <input type="text" class="form-control" id="category" name="category" required placeholder="Enter category">
+                                <div class="invalid-feedback">Category is required.</div>
             </div>
             <div class="form-group col-md-6">
               <label for="expense_amount">Amount <span class="text-danger">*</span></label>
@@ -1252,8 +1252,12 @@
           <div class="card-details">
             <p>${staffMember.staff_name}</p>
             <p><span>Role:</span> ${staffMember.role}</p>
+            <p><span>Assigned Batch:</span> ${staffMember.assigned_batch}</p>
             <p><span>Contact Number:</span> ${staffMember.contact_no}</p>
             <p><span>Joining Date:</span> ${staffMember.joining_date}</p>
+            
+
+
             <button class="btn btn-edit" data-staff-id="${staffMember.id}">
               <i class="fas fa-edit"></i> Edit
             </button>
@@ -1570,8 +1574,8 @@
           category: $('#editBatchCategory').val()
         };
         $.ajax({
-          url: baseUrl + "Center/update_Batch",
-          method: "POST",
+          url: baseUrl + "Center/updateBatch",
+          method: "PUT",
           data: JSON.stringify(payload),
           contentType: "application/json",
           success: function (response) {
@@ -1762,92 +1766,51 @@
           }
         });
       });
-// show assign batch field if role is coach
-$('#staff_role').on('change', function () {
-  const role = $(this).val();
-  if (role === 'coach') {
-    $('#batchRow').show();
-
-    // Fetch batches dynamically
-    $.ajax({
-  url: baseUrl + "Center/getBatchesByCenter/" + centerId,
-      method: "GET",
-      dataType: "json",
-      success: function (response) {
-        if (response.status === "success") {
-          let options = '<option value="">Select Batch</option>';
-          response.data.forEach(batch => {
-            options += `<option value="${batch.id}">${batch.batch_name}</option>`;
-          });
-          $('#batch_id').html(options);
-        } else {
-          $('#batch_id').html('<option value="">No batches found</option>');
-        }
-      },
-      error: function () {
-        $('#batch_id').html('<option value="">Error fetching batches</option>');
-      }
-    });
-
-  } else {
-    $('#batchRow').hide();
-    $('#batch_id').val('');
-  }
-});
 
       // Add Staff Handler
- $('#staffSubmitBtn').click(function () {
-  const form = $('#staffForm');
-  if (!form[0].checkValidity()) {
-    form[0].reportValidity();
-    return;
-  }
-
-  const payload = {
-    center_id: centerId,
-    staff_name: $('#staff_name').val(),
-    contact_no: $('#contact_no').val(),
-    role: $('#staff_role').val(),
-    joining_date: $('#joining_date').val()
-  };
-
-  if (payload.role === 'coach') {
-    payload.assigned_batch = $('#batch_id').val();
-    if (!payload.assigned_batch) {
-      Swal.fire({ icon: 'warning', title: 'Required', text: 'Please assign a batch for coach' });
-      return;
-    }
-  }
-
-  $.ajax({
-    url: baseUrl + "Staff/addStaff",
-    method: "POST",
-    data: JSON.stringify(payload),
-    contentType: "application/json",
-    dataType: "json",
-    success: function (response) {
-      if (response.status === "success") {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Staff added successfully'
+      $('#staffSubmitBtn').click(function () {
+        const form = $('#staffForm');
+        if (!form[0].checkValidity()) {
+          form[0].reportValidity();
+          return;
+        }
+        const payload = {
+          center_id: centerId,
+          staff_name: $('#staff_name').val(),
+          contact_no: $('#contact_no').val(),
+          role: $('#staff_role').val(),
+          joining_date: $('#joining_date').val()
+        };
+        $.ajax({
+          url: baseUrl + "Staff/addStaff",
+          method: "POST",
+          data: JSON.stringify(payload),
+          contentType: "application/json",
+           dataType: "json",
+          success: function (response) {
+            if (response.status === "success") {
+              Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Staff added successfully'
+              });
+              $('#staffModal').modal('hide');
+              fetchCenterData();
+            } else {
+              console.log('Add staff failed:', response.message || 'Unknown error');
+              $('#staffModal').modal('hide');
+              fetchCenterData();
+            }
+          },
+          error: function () {
+            console.log('Error adding staff');
+            $('#staffModal').modal('hide');
+            fetchCenterData();
+          }
         });
-        $('#staffModal').modal('hide');
-        fetchCenterData();
-      } else {
-        console.log('Add staff failed:', response.message || 'Unknown error');
-        $('#staffModal').modal('hide');
-        fetchCenterData();
-      }
-    },
-    error: function () {
-      console.log('Error adding staff');
-      $('#staffModal').modal('hide');
-      fetchCenterData();
-    }
-  });
-});
-// Save Staff Changes
+      });
+
+      // Save Staff Changes
       $('#editStaffSubmitBtn').click(function () {
         const form = $('#editStaffForm');
         if (!form[0].checkValidity()) {
@@ -1893,171 +1856,16 @@ $('#staff_role').on('change', function () {
         });
       });
 
-      //   // Add Expense Handler
-      //  $('#expenseSubmitBtn').click(function() {
-      //     const form = $('#expenseForm');
-      //     if (!form[0].checkValidity()) {
-      //         form[0].reportValidity();
-      //         return;
-      //     }
-      //     const payload = {
-      //         center_id: centerId,
-      //         category: $('#expense_category').val(),
-      //         amount: parseFloat($('#expense_amount').val()).toFixed(2),
-      //         date: $('#expense_date').val(),
-      //         description: $('#expense_description').val()
-      //     };
-      //     $.ajax({
-      //         url: baseUrl + "superadmin/Expenses",
-      //         method: "POST",
-      //         data: JSON.stringify(payload),
-      //         contentType: "application/json",
-      //         success: function(response) {
-      //             if (response.status === "success") {
-      //                 Swal.fire({
-      //                     icon: 'success',
-      //                     title: 'Success',
-      //                     text: 'Expense added successfully'
-      //                 });
-      //                 $('#expenseModal').modal('hide');
-      //                 fetchCenterData();
-      //             } else {
-      //                 Swal.fire({
-      //                     icon: 'error',
-      //                     title: 'Error',
-      //                     text: response.message || 'Failed to add expense'
-      //                 });
-      //             }
-      //         },
-      //         error: function(xhr, status, error) {
-      //             console.error('AJAX Error:', status, error, xhr.responseText);
-      //             Swal.fire({
-      //                 icon: 'error',
-      //                 title: 'Error',
-      //                 text: 'Error adding expense. Check console for details.'
-      //             });
-      //         }
-      //     });
-      // });
-
-      $('#expenseSubmitBtn').click(function () {
-        const form = $('#expenseForm');
-        if (!form[0].checkValidity()) {
-          form[0].reportValidity();
-          return;
-        }
-
-        $.ajax({
-          url: baseUrl + "superadmin/Expenses",
-          method: "POST",
-          data: form.serialize(), // ✅ sends as normal form-data
-          success: function (response) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Success',
-              text: 'Expense added successfully'
-            });
-            $('#expenseModal').modal('hide');
-            fetchCenterData();
-          },
-          error: function (xhr, status, error) {
-            console.error('AJAX Error:', status, error, xhr.responseText);
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Error adding expense. Check console for details.'
-            });
-          }
-        });
+      // View Expense Button Handler
+      $('#viewExpenseBtn').click(function () {
+        // Get centerId from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const centerId = urlParams.get('center_id');
+        // Redirect to Expenses page for this center
+        window.location.href = "<?php echo base_url(); ?>superadmin/Expenses?center_id=" + centerId;
       });
 
 
-
-
-
-
-
-
-      // Edit Expense Handler
-      $(document).on('click', '.btn-edit[data-expense-id]', function () {
-        const expenseId = $(this).data('expense-id');
-        $.ajax({
-          url: baseUrl + "Expense/getExpenseById/" + expenseId,
-          method: "GET",
-          dataType: "json",
-          success: function (response) {
-            if (response.status === "success") {
-              const e = response.expense;
-              $("#editExpenseId").val(e.id);
-              $("#editExpenseCategory").val(e.category);
-              $("#editExpenseAmount").val(parseFloat(e.amount).toFixed(2));
-              $("#editExpenseDate").val(e.date);
-              $("#editExpenseDescription").val(e.description);
-              validateForm('editExpenseForm', 'editExpenseSubmitBtn');
-              $("#editExpenseModal").modal("show");
-            } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Failed to load expense data'
-              });
-            }
-          },
-          error: function () {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Error fetching expense data'
-            });
-          }
-        });
-      });
-
-      // Save Expense Changes
-      $('#editExpenseSubmitBtn').click(function () {
-        const form = $('#editExpenseForm');
-        if (!form[0].checkValidity()) {
-          form[0].reportValidity();
-          return;
-        }
-        const payload = {
-          id: $('#editExpenseId').val(),
-          category: $('#editExpenseCategory').val(),
-          amount: parseFloat($('#editExpenseAmount').val()).toFixed(2),
-          date: $('#editExpenseDate').val(),
-          description: $('#editExpenseDescription').val()
-        };
-        $.ajax({
-          url: baseUrl + "Expense/updateExpense",
-          method: "POST",
-          data: JSON.stringify(payload),
-          contentType: "application/json",
-          success: function (response) {
-            if (response.status === "success") {
-              Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Expense updated successfully'
-              });
-              $('#editExpenseModal').modal('hide');
-              fetchCenterData();
-            } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Failed to update expense'
-              });
-            }
-          },
-          error: function () {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Error updating expense'
-            });
-          }
-        });
-      });
 
       // Initialize
       fetchCenterData();
